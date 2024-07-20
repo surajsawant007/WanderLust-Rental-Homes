@@ -36,6 +36,8 @@ This WanderLust project showcases my proficiency in full-stack web development, 
 
 I have deployed my project using render connected with the database of MongoDB Atlas.
 
+project live here:https://wanderlust-holidays-rental-homes.onrender.com/listings
+
 ## Authors
 
 ## 🚀 About Me
