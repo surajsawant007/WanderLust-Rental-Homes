@@ -29,9 +29,6 @@ Additional Features:
 2. Included features for user reviews, ratings, and messaging between users.
 3. Ensured security and data privacy through encryption and data validation.
 4. Deployed the web application on a cloud platform on Cloudinary to make it accessible online.
-5. Google Authentication for fast login or sign-up for a user.
-6. Github Authentication for fast login or sign-up for a user.
-7. Razorpay Payment integration for acutally booking a house.
 
 This WanderLust project showcases my proficiency in full-stack web development, from creating an engaging front-end to managing the back-end and database components. It allows users to search for properties and experience the key functionalities of the Airbnb platform in a seamless and secure manner.
 
@@ -39,15 +36,10 @@ This WanderLust project showcases my proficiency in full-stack web development, 
 
 I have deployed my project using render connected with the database of MongoDB Atlas.
 
-Live : https://wanderlust-projectaffan.onrender.com/
-
 ## Authors
 
-- [@affancoder](https://github.com/affancoder)
-
-
 ## 🚀 About Me
-👋 Hi, I’m @affancoder (MD Affan Asghar)
+👋 Hi, I’m @suraj sawant
 
 👀 I’m interested in coding.
  
@@ -55,15 +47,11 @@ Live : https://wanderlust-projectaffan.onrender.com/
 
 💞️ I'm looking to collaborate on exciting and innovative projects that align with my skills and interests.
 
-
-## 🔗 Links
-[![portfolio](https://img.shields.io/badge/my_portfolio-000?style=for-the-badge&logo=ko-fi&logoColor=white)](https://affancoder.github.io/Portfolio_Website/)
-
-Email: affanasgar8@gmail.com
+Email: surajsawant3482@gmail.com
 
 LinkedIn: https://www.linkedin.com/in/mdaffanasghar/
 
-Instagram: https://www.instagram.com/mr_affan15/
+Instagram: https://www.instagram.com/suraj_sawant_07/
 
 GitHub: https://github.com/affancoder
 ## Feedback
