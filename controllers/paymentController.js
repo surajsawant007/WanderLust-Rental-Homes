@@ -1,52 +1,30 @@
-const Razorpay = require("razorpay");
-const { RAZORPAY_ID_KEY, RAZORPAY_SECRET_KEY } = process.env;
+// require('dotenv').config();
+// const Razorpay = require('razorpay');
 
-const razorpayInstance = new Razorpay({
-  key_id: RAZORPAY_ID_KEY,
-  key_secret: RAZORPAY_SECRET_KEY,
-});
+// // Check if environment variables are loaded correctly
+// // console.log("RAZORPAY_KEY_ID:", process.env.RAZORPAY_KEY_ID);
+// // console.log("RAZORPAY_KEY_SECRET:", process.env.RAZORPAY_KEY_SECRET);
 
-const renderProductPage = async (req, res) => {
-  try {
-    res.render("product");
-  } catch (error) {
-    console.log(error.message);
-  }
-};
+// // Initialize Razorpay with key_id and key_secret
+// const razorpayInstance = new Razorpay({
+//   key_id: process.env.RAZORPAY_KEY_ID,
+//   key_secret: process.env.RAZORPAY_KEY_SECRET
+// });
 
-const createOrder = async (req, res) => {
-  try {
-    const amount = req.body.amount * 100;
-    const options = {
-      amount: amount,
-      currency: "INR",
-      receipt: "razorUser@gmail.com",
-    };
+// // Create a payment order
+// const createOrder = async (req, res) => {
+//   const options = {
+//     amount: req.body.amount * 100, // amount in the smallest currency unit (e.g., paise for INR)
+//     currency: "INR",
+//     receipt: "order_rcptid_11"
+//   };
 
-    razorpayInstance.orders.create(options, (err, order) => {
-      if (!err) {
-        res.status(200).send({
-          success: true,
-          msg: "Order Created",
-          order_id: order.id,
-          amount: amount,
-          key_id: RAZORPAY_ID_KEY,
-          product_name: req.body.name,
-          description: req.body.description,
-          contact: "9339828230",
-          name: "MD Affan Asghar",
-          email: "mdaffanasghar15@gmail.com",
-        });
-      } else {
-        res.status(400).send({ success: false, msg: "Something went wrong!" });
-      }
-    });
-  } catch (error) {
-    console.log(error.message);
-  }
-};
+//   try {
+//     const order = await razorpayInstance.orders.create(options);
+//     res.json(order);
+//   } catch (error) {
+//     res.status(500).send(error);
+//   }
+// };
 
-module.exports = {
-  renderProductPage,
-  createOrder,
-};
+// module.exports = { createOrder };

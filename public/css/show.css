@@ -1,0 +1,237 @@
+body {
+  background-color: #f8f9fa;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.suraj-star-rating {
+  display: flex;
+  direction: row-reverse; /* Align stars right to left */
+  justify-content: flex-start;
+}
+
+.suraj-star-rating input[type="radio"] {
+  display: none; /* Hide radio buttons */
+}
+
+.suraj-star-rating label {
+  font-size: 2em; /* Star size */
+  color: #ddd; /* Default color for unfilled stars */
+  cursor: pointer; /* Change cursor on hover */
+}
+
+.suraj-star-rating input[type="radio"]:checked ~ label {
+  color: #f5b301; /* Color for filled stars */
+}
+
+.suraj-star-rating label:hover,
+.suraj-star-rating label:hover ~ label {
+  color: #f5b301; /* Color for hovered stars */
+}
+
+/* /// */
+.airbnb-button {
+  display: none; /* Hide by default */
+  margin-left: 10px; /* Spacing for desktop */
+}
+
+/* Show button on desktop */
+@media (min-width: 768px) {
+  .airbnb-button {
+    display: inline-block;
+  }
+}
+
+/* Show button in mobile view */
+.navbar-toggle-button.active + .navbar-menu .airbnb-button {
+  display: block; /* Show in mobile when menu is active */
+}
+
+.suraj-listing-container {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 1300px;
+  margin: 0 auto;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.suraj-listing-header {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #343a40;
+}
+
+.suraj-listing-content img.suraj-listing-image {
+  max-height: 500px;
+  object-fit: cover;
+  width: 100%;
+  border-radius: 10px;
+}
+
+.suraj-listing-title {
+  font-size: 1.75rem;
+  font-weight: 600;
+  margin-top: 1rem;
+  color: #343a40;
+}
+
+.suraj-listing-description {
+  font-size: 1.1rem;
+  color: #6c757d;
+  margin-top: 1rem;
+}
+
+.suraj-listing-price,
+.suraj-listing-location,
+.suraj-listing-category {
+  font-size: 1.1rem;
+  margin-top: 0.5rem;
+}
+
+.suraj-listing-price strong,
+.suraj-listing-location strong,
+.suraj-listing-category strong {
+  color: #343a40;
+}
+
+.suraj-listing-owner {
+  font-size: 1.1rem;
+  color: #6c757d;
+  margin-top: 1rem;
+}
+
+.suraj-listing-buttons {
+  margin-top: 2rem;
+
+}
+
+.btn-outline-warning,
+.btn-outline-danger {
+  margin-right: 1rem !important;
+  font-size: 1rem;
+  padding: 0.5rem 1.5rem;
+  border-width: 2px;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.btn-outline-warning:hover {
+  background-color: #ffc107;
+  color: #fff;
+}
+
+.btn-outline-danger:hover {
+  background-color: #dc3545;
+  color: #fff;
+}
+
+.suraj-star-rating {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  padding: 0;
+}
+
+.suraj-star-rating input[type="radio"] {
+  display: none;
+}
+
+.suraj-star-rating label {
+  font-size: 2em;
+  color: #ddd;
+  cursor: pointer;
+  display: inline-block;
+}
+
+.suraj-star-rating input[type="radio"]:checked ~ label,
+.suraj-star-rating label:hover,
+.suraj-star-rating label:hover ~ label {
+  color: #f5b301;
+}
+
+.suraj-header-reviews {
+  margin-top: 3rem;
+}
+
+.suraj-reviews-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: space-between;
+}
+
+.suraj-review-item {
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin: 15px 0;
+  padding: 20px;
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  flex: 0 0 calc(50% - 20px);
+  overflow: hidden;
+}
+
+.suraj-review-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.suraj-review-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.suraj-review-author {
+  font-size: 1.25em;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 7px;
+}
+
+.suraj-review-comment {
+  font-size: 1em;
+  color: #666;
+  line-height: 1.5;
+  word-wrap: break-word;
+}
+
+.suraj-review-rating {
+  color: #ffcc00;
+  font-size: 1.2em;
+}
+
+.suraj-button {
+  background-color: #dc3545 !important;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .suraj-listing-container {
+    padding: 1rem;
+  }
+
+  .suraj-listing-header {
+    font-size: 1.5rem;
+  }
+
+  .suraj-listing-title {
+    font-size: 1.5rem;
+  }
+
+  .suraj-review-item {
+    flex: 0 0 100%;
+  }
+
+  .suraj-map-div {
+    width: 100%;
+    margin-left: 0;
+    margin-bottom: 1rem; /* mb-3 equivalent */
+  }
+
+  #map {
+    height: 300px; /* Adjust map height for mobile */
+  }
+}
+/* ////////////////////new  */
+

@@ -26,7 +26,7 @@ module.exports.showListing = async (req, res) => {
     req.flash("error", "Listing you requested for does not exist!");
     res.redirect("/listings");
   }
-  console.log(listing);
+  // console.log(listing);
   res.render("listings/show.ejs", { listing });
 };
 
@@ -48,7 +48,9 @@ module.exports.createListing = async (req, res, next) => {
   newListing.geometry = response.body.features[0].geometry;
 
   let savedListing = await newListing.save();
-  console.log(savedListing);
+  // console.log(savedListing);
+
+
 
   req.flash("success", "New Listing Created!");
   res.redirect("/listings");
@@ -85,7 +87,7 @@ module.exports.updateListing = async (req, res) => {
     updatedListing.image = { url, filename };
     updatedListing.save();
   }
-  req.flash("success", "Listing Updated !!");
+  req.flash("update", "Listing Updated successfully");
   res.redirect(`/listings/${id}`);
 };
 
@@ -109,7 +111,7 @@ module.exports.updateListing = async (req, res) => {
 module.exports.filter = async (req, res, next) => {
   let { id } = req.params;
   let allListings = await Listing.find({ category: { $all: [id] } });
-  console.log(allListings);
+  // console.log(allListings);
   if (allListings.length != 0) {
     res.locals.success = `Listings Find by ${id}`;
     res.render("listings/index.ejs", { allListings });
@@ -122,9 +124,9 @@ module.exports.filter = async (req, res, next) => {
 // --- Search ---
 
 module.exports.search = async (req, res) => {
-  console.log(req.query.q);
+  // console.log(req.query.q);
   let input = req.query.q.trim().replace(/\s+/g, " ");
-  console.log(input);
+  // console.log(input);
   if (input == "" || input == " ") {
     req.flash("error", "Search value empty !!!");
     res.redirect("/listings");
@@ -141,7 +143,7 @@ module.exports.search = async (req, res) => {
     }
     flag = data[index] == " ";
   }
-  console.log(element);
+  // console.log(element);
   let allListings = await Listing.find({
     title: { $regex: element, $options: "i" },
   });
@@ -194,7 +196,7 @@ module.exports.search = async (req, res) => {
 module.exports.destroyListing = async (req, res) => {
   let { id } = req.params;
   let deletedListing = await Listing.findByIdAndDelete(id);
-  console.log(deletedListing);
-  req.flash("success", "Listing Deleted!");
+  // console.log(deletedListing);
+  req.flash("destroy", "Listing Deleted!");
   res.redirect("/listings");
 };

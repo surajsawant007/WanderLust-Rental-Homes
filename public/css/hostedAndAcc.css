@@ -1,0 +1,78 @@
+/* Custom Accordion Styles */
+.suraj-accordion {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    overflow: hidden;
+  }
+  
+  .suraj-accordion-item {
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .suraj-accordion-item:last-child {
+    border-bottom: 0;
+  }
+  
+  .suraj-accordion-header {
+    background-color: #f8f9fa;
+    padding: 0.5rem;
+  }
+  
+  .suraj-accordion-button {
+    background: none;
+    border: none;
+    color: #007bff;
+    font-weight: bold;
+    text-align: left;
+    width: 100%;
+    padding: 0.5rem;
+    font-size: 1rem;
+  }
+  
+  .suraj-accordion-button:not(.collapsed) {
+    color: #0056b3;
+    background-color: #e9ecef;
+  }
+  
+  .suraj-accordion-body {
+    padding: 1rem;
+  }
+  
+  .suraj-accordion-body img {
+    max-width: 100%;
+    height: auto;
+  }
+  
+  .suraj-accordion-body video {
+    max-width: 100%;
+    height: auto;
+  }
+  
+  .suraj-accordion-body ul, .suraj-accordion-body ol {
+    padding-left: 1.5rem;
+  }
+  
+  .suraj-accordion-body address {
+    font-style: normal;
+  }
+  
+  .gallery {
+    display: flex;
+    gap: 0.5rem;
+  }
+  
+  .gallery img {
+    width: 100px;
+    height: auto;
+  }
+  
+  @media (max-width: 767.98px) {
+    .suraj-accordion-button {
+      font-size: 0.875rem;
+    }
+  
+    .suraj-accordion-body {
+      padding: 0.5rem;
+    }
+  }
+  

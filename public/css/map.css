@@ -1,0 +1,50 @@
+/* Base styles for map section */
+.suraj-map-title {
+    font-size: 1.25rem; /* Adjust as needed */
+    color: #333;
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+  }
+  
+  .suraj-map-title i {
+    margin-right: 0.5rem;
+  }
+  
+  .suraj-map-location {
+    font-size: 1rem; /* Adjust as needed */
+    color: #555;
+    margin-top: 0;
+    margin-bottom: 1rem;
+  }
+  
+  /* Map container styles */
+  .suraj-map-container {
+    width: 100%;
+    height: 300px; /* Adjust as needed */
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  
+  /* Responsive styles */
+  @media (max-width: 768px) {
+    .suraj-map-title {
+      font-size: 1rem; /* Adjust as needed */
+    }
+    
+    .suraj-map-location {
+      font-size: 0.875rem; /* Adjust as needed */
+    }
+    
+    .suraj-map-container {
+      height: 200px; /* Adjust as needed */
+    }
+  }
+  
+  @media (min-width: 769px) {
+    .suraj-map-container {
+      height: 400px; /* Adjust as needed */
+    }
+  }
+  

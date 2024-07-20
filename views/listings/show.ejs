@@ -5,202 +5,195 @@
   const listing = <%- JSON.stringify(listing) %>;
 </script>
 
-<div class="row mt-3" id="show-body">
-  <div class="col-8 offset-3">
-    <h3 id="lis-tit"><%= listing.title %></h3>
-  </div>
-  <div class="card col-6 offset-3 show-card listing-card">
-    <img
-      src="<%= listing.image.url %>"
-      class="card-img-top show-img"
-      alt="listing_image"
-    />
-    <div class="card-body">
-      <p class="card-text mt-2">
-        Hosted by <i><%= listing.owner.username %></i>
-      </p>
-      <p class="card-text"><b>Description : </b><%= listing.description %></p>
-        <p class="card-text">
-          <b>Cost : </b>
-          &#8377; <%= listing.price.toLocaleString("en-IN") %> &nbsp;/ night
+<div class="suraj-listing-container">
+  <div class="row">
+    <div class="col-md-8 offset-md-2">
+      <h2 class="mb-4 text-center suraj-listing-header">
+        <%= listing.title %>
+      </h2>
+      <div class="suraj-listing-content">
+        <img
+          class="img-fluid mb-4 suraj-listing-image"
+          src="<%= listing.image.url %>"
+          alt="Listing image"
+        />
+        <h3 class="suraj-listing-title"><%= listing.title %></h3>
+        <p class="suraj-listing-description"><%= listing.description %></p>
+        <p class="suraj-listing-price">
+          <strong>Price:</strong>
+          <%= listing.price.toLocaleString('en-IN', { style: 'currency' ,
+          currency: 'INR' });%>/night
         </p>
-      <p class="card-text">
-        <b>Category :</b> <%= listing.category.slice(",").join(", ") %>
-      </p>
-      <p class="card-text"><b>Place :&nbsp;&nbsp;</b><i class="fa-solid fa-location-dot">&nbsp;</i><%= listing.location %></p>
-      <p class="card-text"><b>Country :&nbsp;&nbsp;</b><i class="fa-solid fa-globe">&nbsp;</i><%= listing.country %></p>
-    </div>
-  </div>
-  <br />
-  <% if(currUser && listing.owner._id.equals(currUser._id)) { %>
-  <div class="btns mb-5" style="margin-left: 10px">
-    <a
-      href="/listings/<%= listing._id %>/edit"
-      class="btn btn-dark col-1 offset-3 edit-btn"
-      >Edit</a
-    >
+        <p class="suraj-listing-location">
+          <strong>Location:</strong>
+          <%= listing.location %>, <%= listing.country %>
+        </p>
+        <p class="suraj-listing-category">
+          <strong>Category:</strong>
+          <%= listing.category %>
+        </p>
+        <span class="suraj-listing-owner"
+          >Owned by: <i><%= listing.owner.username %></i></span
+        >
 
-    <form method="POST" action="/listings/<%=listing._id%>?_method=DELETE">
-      <button class="btn btn-dark offset-5">Delete</button>
-    </form>
-  </div>
-  <% } %>
+        <% if(currUser && currUser._id.equals(listing.owner._id)) { %>
+        <div class="d-flex mt-4 suraj-listing-buttons">
+          <a
+            href="/listings/<%= listing._id %>/edit"
+            class="btn btn-outline-warning"
+          >
+            Edit
+          </a>
+          <form
+            method="post"
+            action="/listings/<%= listing._id %>?_method=DELETE"
+            class="ml-2"
+          >
+            <button type="submit" class="btn btn-outline-danger">Delete</button>
+          </form>
+        </div>
+        <% } %>
 
-  <!----------------------- Payment Gateway start ----------------------------->
-  <div>
+       <!----------------------- Payment Gateway start ----------------------------->
+  <!-- <div>
     <% if(currUser) { %>
       <form class="pay-form">
         <input type="hidden" name="name" value = "<%= listing.title %>"/>
         <input type="hidden" name="amount" value = "<%= listing.price %>" />
         <input type="hidden" name="description" value = "<%= listing.description %>"/>
         <button type="submit" value="Pay Now" class="btn btn-success mx-auto" id="booking-btn">Book House</button>
-        <!-- <input type="submit" value="Pay Now" /> -->
+        <input type="submit" value="Pay Now" />
       </form>
     <% } %>
-  </div>
+  </div> -->
   <!-------------------------- Payment Gateway End ----------------------------->
 
-  <!--------------------------- Review start here ------------------------------->
-
-  <div class="col-8 offset-3 mb-3">
-    <% if(currUser) { %>
-    <hr class="hrshow" />
-    <h4><i class="fa-regular fa-comment"></i> Leave a Review</h4>
-    <form
-      action="/listings/<%= listing._id %>/reviews"
-      method="POST"
-      novalidate
-      class="needs-validation"
-    >
-      <div class="mb-3 mt-3">
-        <label for="rating" class="form-label"><i id="rating">Rating</i></label>
-        <fieldset class="starability-slot">
-          <input
-            type="radio"
-            id="no-rate"
-            class="input-no-rate"
-            name="review[rating]"
-            value="1"
-            checked
-            aria-label="No rating."
-          />
-          <input
-            type="radio"
-            id="first-rate1"
-            name="review[rating]"
-            value="1"
-          />
-          <label for="first-rate1" title="Terrible">1 star</label>
-          <input
-            type="radio"
-            id="first-rate2"
-            name="review[rating]"
-            value="2"
-          />
-          <label for="first-rate2" title="Not good">2 stars</label>
-          <input
-            type="radio"
-            id="first-rate3"
-            name="review[rating]"
-            value="3"
-          />
-          <label for="first-rate3" title="Average">3 stars</label>
-          <input
-            type="radio"
-            id="first-rate4"
-            name="review[rating]"
-            value="4"
-          />
-          <label for="first-rate4" title="Very good">4 stars</label>
-          <input
-            type="radio"
-            id="first-rate5"
-            name="review[rating]"
-            value="5"
-          />
-          <label for="first-rate5" title="Amazing">5 stars</label>
-        </fieldset>
-      </div>
-      <div class="mb-3 mt-3" id="comments">
-        <label for="comment" class="form-label">Comments</label>
-        <textarea
-          name="review[comment]"
-          id="comment"
-          cols="25"
-          rows="4"
-          class="form-control"
-          required
-        ></textarea>
-        <div class="invalid-feedback">Please add some comments for review</div>
-      </div>
-      <button class="btn btn-success">Submit</button>
-    </form>
-
-    <% } %> <% if(listing.reviews.length > 0) { %>
-    <div class="row">
-      <p class="allreview">All Reviews</p>
-      <% for(review of listing.reviews) { %>
-      <div class="card col-5 ms-3 mb-2" id="card-body">
-        <div class="card-body">
-          <h5 class="card-title mt-2">
-            <i class="fa-solid fa-circle-user fa-lg" style="color: #ff0000;">&nbsp;</i><%=
-            review.author.username %>
-          </h5>
-          <p
-            class="starability-result card-text"
-            data-rating="<%= review.rating %>"
-          ></p>
-          <p class="card-text mb-4"><%= review.comment %></p>
-          <% if(currUser && currUser._id.equals(review.author._id)) { %>
-          <div class="btn-review">
-            <form method="POST"
-            action="/listings/<%= listing._id %>/reviews/<%= review._id %>/_method=PATCH">
-              <button class="btn btn-sm btn-success"><a href="/listings/<%= review._id %>/reviewedit">Edit</a></button>
-            </form>
-            <form
-              class="mb-3"
-              method="POST"
-              action="/listings/<%= listing._id %>/reviews/<%= review._id %>?_method=DELETE"
-            >
-              <button class="btn btn-sm btn-danger">Delete</button>
-            </form>
+        <!--------------------------- Review start here ------------------------------->
+        <!--------------------------- Review start here ------------------------------->
+        <% if(currUser) { %>
+        <div class="mt-5">
+          <h3>Leave a Review</h3>
+          <form
+            action="/listings/<%= listing._id %>/reviews"
+            method="post"
+            novalidate
+            class="needs-validation"
+          >
+            <label for="rating">Rating:</label>
+            <div class="suraj-star-rating">
+              <input
+                type="radio"
+                id="star1"
+                name="review[rating]"
+                value="1"
+                required
+              />
+              <label for="star1" title="1 star">★</label>
+              <input
+                type="radio"
+                id="star2"
+                name="review[rating]"
+                value="2"
+                required
+              />
+              <label for="star2" title="2 stars">★</label>
+              <input
+                type="radio"
+                id="star3"
+                name="review[rating]"
+                value="3"
+                required
+              />
+              <label for="star3" title="3 stars">★</label>
+              <input
+                type="radio"
+                id="star4"
+                name="review[rating]"
+                value="4"
+                required
+              />
+              <label for="star4" title="4 stars">★</label>
+              <input
+                type="radio"
+                id="star5"
+                name="review[rating]"
+                value="5"
+                required
+              />
+              <label for="star5" title="5 stars">★</label>
+            </div>
+            <label for="comments" class="mt-3">Comments:</label>
+            <textarea
+              id="comments"
+              name="review[comment]"
+              rows="4"
+              class="form-control"
+              required
+            ></textarea>
+            <div class="invalid-feedback">
+              Please add some comments for review!
+            </div>
+            <button type="submit" class="btn btn-primary mt-3">
+              Submit Review
+            </button>
+          </form>
+        </div>
+        <% } %> <% if(listing.reviews.length > 0) { %>
+        <h3 class="suraj-header-reviews">All Reviews:</h3>
+        <div class="suraj-reviews-container">
+          <% for(review of listing.reviews) { %>
+          <div class="suraj-review-item">
+            <div class="suraj-review-content">
+              <h5 class="suraj-review-author">
+                @<%= review.author.username %>
+              </h5>
+              <p class="starability-result" data-rating="<%= review.rating %>">
+                Rated: <%= review.rating %> stars
+              </p>
+              <p class="suraj-review-comment"><%= review.comment %></p>
+              <% if(currUser && currUser._id.equals(review.author._id)) { %>
+              <form
+                method="post"
+                action="/listings/<%= listing._id %>/reviews/<%= review._id %>?_method=DELETE"
+              >
+                <button class="btn btn-sm btn-dark suraj-button">Delete</button>
+              </form>
+              <% } %>
+            </div>
           </div>
           <% } %>
         </div>
+        <% } %>
+        <!--------------------------- Review end here ------------------------------->
       </div>
-      <% } %>
-    </div>
-    <% } %>
-  </div>
+      <!-----------------= review end =------------------->
 
-  <!-----------------= review end =------------------->
+      <!--------------------------- Offers start --------------------------->
 
-  <!--------------------------- Offers start --------------------------->
-
-  <div class="col-8 offset-3 my-5">
-    <hr class="hrshow" />
-    <h4>What this place offers</h4>
-    <div class="offers">
-      <i class="ri-restaurant-line"><span> Kitchen</span></i>
-      <i class="ri-car-fill"><span> Parking</span></i>
-      <i class="ri-t-shirt-air-fill"><span> Air conditioning</span></i>
-      <i class="ri-tv-2-line"><span> TV</span></i>
-      <i class="ri-vidicon-line"><span> Security cameras</span></i>
-      <i class="ri-wifi-line"><span> Wifi</span></i>
-      <i class="ri-steam-fill"><span> Gaming</span></i>
-    </div>
-    <div class="offers">
-      <button
-        id="offers"
-        type="button"
-        class="btn btn-outline-dark"
-        data-bs-toggle="modal"
-        data-bs-target="#exampleModal"
-      >
-        Show all 50 amenities
-      </button>
-      <!-- Button trigger modal -->
-      <!-- <button
+      <div class="my-4">
+        <hr class="hrshow" />
+        <h4>What this place offers</h4>
+        <div class="offers">
+          <i class="ri-restaurant-line"><span> Kitchen</span></i>
+          <i class="ri-car-fill"><span> Parking</span></i>
+          <i class="ri-t-shirt-air-fill"><span> Air conditioning</span></i>
+          <i class="ri-tv-2-line"><span> TV</span></i>
+          <i class="ri-vidicon-line"><span> Security cameras</span></i>
+          <i class="ri-wifi-line"><span> Wifi</span></i>
+          <i class="ri-steam-fill"><span> Gaming</span></i>
+        </div>
+        <div class="offers">
+          <button
+            id="offers"
+            type="button"
+            class="btn btn-outline-dark"
+            data-bs-toggle="modal"
+            data-bs-target="#exampleModal"
+          >
+            Show all 50 amenities
+          </button>
+          <!-- Button trigger modal -->
+          <!-- <button
         id="offers"
         type="button"
         class="btn btn-primary"
@@ -210,394 +203,664 @@
         Launch demo modal
       </button> -->
 
-      <!-- Modal -->
-      <div
-        class="modal fade"
-        id="exampleModal"
-        tabindex="-1"
-        aria-labelledby="exampleModalLabel"
-        aria-hidden="true"
-      >
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h1 class="modal-title fs-5" id="exampleModalLabel">
-                What this place offers
-              </h1>
-              <!-- <button
+          <!-- Modal -->
+          <div
+            class="modal fade"
+            id="exampleModal"
+            tabindex="-1"
+            aria-labelledby="exampleModalLabel"
+            aria-hidden="true"
+          >
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h1 class="modal-title fs-5" id="exampleModalLabel">
+                    What this place offers
+                  </h1>
+                  <!-- <button
                 type="button"
                 class="btn-close"
                 data-bs-dismiss="modal"
                 aria-label="Close"
               ></button> -->
-            </div>
-            <div class="modal-body">
-              <ul>
-                <h5>Scenic views</h5>
-                <li>Lake view</li>
-                <li>Mountain view</li>
-                <li>Pool view</li>
-                <hr />
-              </ul>
-              <ul>
-                <h5>Bathrooms</h5>
-                <li>Cleaning products</li>
-                <li>Shampoo</li>
-                <li>Hot Water</li>
-                <hr />
-              </ul>
-              <ul>
-                <h5>Bedroom and laundry</h5>
-                <li>Essentials</li>
-                <li>Hangers</li>
-                <li>Bed linen</li>
-                <hr />
-              </ul>
-              <ul>
-                <h5>Entertainment</h5>
-                <li>TV with standard cable/satellite</li>
-                <li>Sound system with Bluetooth and aux</li>
-                <li>Pool table</li>
-                <hr />
-              </ul>
-              <ul>
-                <h5>Outdoor</h5>
-                <li>Patio or balcony</li>
-                <li>Garden</li>
-                <li>Hammock</li>
-                <li>Firpit</li>
-                <li>BBQ grill</li>
-                <hr />
-              </ul>
-              <ul>
-                <h5>Kitchen and dining</h5>
-                <li>Dishes and cutlery</li>
-                <li>Barbecue utensils</li>
-                <li>Dining table</li>
-                <li>Freezer</li>
-                <hr />
-              </ul>
-              <ul>
-                <h5>Locations Features</h5>
-                <li>Waterfront</li>
-                <p>Right next to a body of water</p>
-                <li>Lake access</li>
-                <p>Guests can get to a lake using a path or dock</p>
-                <li>Private entrance</li>
-                <p>Separate street or building entrance</p>
-                <hr />
-              </ul>
-              <ul>
-                <h6>and many more...</h6>
-              </ul>
-            </div>
-            <div class="modal-footer">
-              <button
-                type="button"
-                class="btn btn-outline-dark"
-                data-bs-dismiss="modal"
-              >
-                Close
-              </button>
-              <!-- <button type="button" class="btn btn-outline-dark">
-                Save changes
-              </button> -->
+                </div>
+                <div class="modal-body">
+                  <ul>
+                    <h5>Scenic views</h5>
+                    <li>Lake view</li>
+                    <li>Mountain view</li>
+                    <li>Pool view</li>
+                    <hr />
+                  </ul>
+                  <ul>
+                    <h5>Bathrooms</h5>
+                    <li>Cleaning products</li>
+                    <li>Shampoo</li>
+                    <li>Hot Water</li>
+                    <hr />
+                  </ul>
+                  <ul>
+                    <h5>Bedroom and laundry</h5>
+                    <li>Essentials</li>
+                    <li>Hangers</li>
+                    <li>Bed linen</li>
+                    <hr />
+                  </ul>
+                  <ul>
+                    <h5>Entertainment</h5>
+                    <li>TV with standard cable/satellite</li>
+                    <li>Sound system with Bluetooth and aux</li>
+                    <li>Pool table</li>
+                    <hr />
+                  </ul>
+                  <ul>
+                    <h5>Outdoor</h5>
+                    <li>Patio or balcony</li>
+                    <li>Garden</li>
+                    <li>Hammock</li>
+                    <li>Firpit</li>
+                    <li>BBQ grill</li>
+                    <hr />
+                  </ul>
+                  <ul>
+                    <h5>Kitchen and dining</h5>
+                    <li>Dishes and cutlery</li>
+                    <li>Barbecue utensils</li>
+                    <li>Dining table</li>
+                    <li>Freezer</li>
+                    <hr />
+                  </ul>
+                  <ul>
+                    <h5>Locations Features</h5>
+                    <li>Waterfront</li>
+                    <p>Right next to a body of water</p>
+                    <li>Lake access</li>
+                    <p>Guests can get to a lake using a path or dock</p>
+                    <li>Private entrance</li>
+                    <p>Separate street or building entrance</p>
+                    <hr />
+                  </ul>
+                  <ul>
+                    <h6>and many more...</h6>
+                  </ul>
+                </div>
+                <div class="modal-footer">
+                  <button
+                    type="button"
+                    class="btn btn-outline-dark"
+                    data-bs-dismiss="modal"
+                  >
+                    Close
+                  </button>
+                  <button type="button" class="btn btn-outline-dark">
+                    Save changes
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
         </div>
+        <hr class="hrshow" />
       </div>
-    </div>
-    <hr class="hrshow" />
-  </div>
 
-  <!------------------= Offers end =----------------->
+      <!------------------= Offers end =----------------->
 
-  <!------------------------- Services start -------------------------------->
+      <!------------------------- Services start -------------------------------->
 
-  <div class="col-8 offset-3 my-5" id="services">
-    <h4>Add-on services</h4>
-    <p>
-      After booking this home, a trip designer can arrange any of these add-on
-      services.
-    </p>
-    <div class="offers">
-      <i class="ri-flight-takeoff-fill"><span> Airport Transfer</span></i>
-      <i class="ri-goblet-line"><span> Butler</span></i>
-      <i class="ri-luggage-cart-fill"><span> Pre-stocking</span></i>
-      <i class="ri-hand-sanitizer-fill"><span> Cleaning</span></i>
-    </div>
-    <p>Not seeing something that you would like to order?</p>
+      <div class="my-4" id="services">
+        <h4>Add-on services</h4>
+        <p>
+          After booking this home, a trip designer can arrange any of these
+          add-on services.
+        </p>
+        <div class="offers">
+          <i class="ri-flight-takeoff-fill"><span> Airport Transfer</span></i>
+          <i class="ri-goblet-line"><span> Butler</span></i>
+          <i class="ri-luggage-cart-fill"><span> Pre-stocking</span></i>
+          <i class="ri-hand-sanitizer-fill"><span> Cleaning</span></i>
+        </div>
+        <p>Not seeing something that you would like to order?</p>
 
-    <div class="services-offer">
-      <!-- Button trigger modal -->
-      <button
-        id="offers"
-        type="button"
-        class="btn btn-outline-dark"
-        data-bs-toggle="modal"
-        data-bs-target="#staticBackdrop"
-      >
-        Message a trip designer
-      </button>
+        <div class="services-offer">
+          <!-- Button trigger modal -->
+          <button
+            id="offers"
+            type="button"
+            class="btn btn-outline-dark"
+            data-bs-toggle="modal"
+            data-bs-target="#staticBackdrop"
+          >
+            Message a trip designer
+          </button>
 
-      <!-- Modal -->
-      <div
-        class="modal fade"
-        id="staticBackdrop"
-        data-bs-backdrop="static"
-        data-bs-keyboard="false"
-        tabindex="-1"
-        aria-labelledby="staticBackdropLabel"
-        aria-hidden="true"
-      >
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h1 class="modal-title fs-5" id="staticBackdropLabel">
-                Owned by <%= listing.owner.username %>
-              </h1>
-            </div>
-            <div class="modal-body">
-              <div class="mb-3">
-                <label for="exampleFormControlInput1" class="form-label"
-                  >Email address</label
-                >
-                <input
-                  type="email"
-                  class="form-control"
-                  id="exampleFormControlInput1"
-                  placeholder="johnduke19@example.com"
-                />
+          <!-- Modal -->
+          <div
+            class="modal fade"
+            id="staticBackdrop"
+            data-bs-backdrop="static"
+            data-bs-keyboard="false"
+            tabindex="-1"
+            aria-labelledby="staticBackdropLabel"
+            aria-hidden="true"
+          >
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h1 class="modal-title fs-5" id="staticBackdropLabel">
+                    Owned by <%= listing.owner.username %>
+                  </h1>
+                </div>
+                <div class="modal-body">
+                  <div class="mb-3">
+                    <label for="exampleFormControlInput1" class="form-label"
+                      >Email address</label
+                    >
+                    <input
+                      type="email"
+                      class="form-control"
+                      id="exampleFormControlInput1"
+                      placeholder="johnduke19@example.com"
+                    />
+                  </div>
+                  <div class="mb-3">
+                    <label for="exampleFormControlTextarea1" class="form-label"
+                      >Write your requirments below</label
+                    >
+                    <textarea
+                      class="form-control"
+                      id="exampleFormControlTextarea1"
+                      rows="3"
+                    ></textarea>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button
+                    type="button"
+                    class="btn btn-success"
+                    data-bs-dismiss="modal"
+                  >
+                    Submit
+                  </button>
+                </div>
               </div>
-              <div class="mb-3">
-                <label for="exampleFormControlTextarea1" class="form-label"
-                  >Write your requirments below</label
-                >
-                <textarea
-                  class="form-control"
-                  id="exampleFormControlTextarea1"
-                  rows="3"
-                ></textarea>
-              </div>
-            </div>
-            <div class="modal-footer">
-              <button
-                type="button"
-                class="btn btn-success"
-                data-bs-dismiss="modal"
-              >
-                Submit
-              </button>
             </div>
           </div>
         </div>
+        <hr class="hrshow" />
       </div>
-    </div>
-    <hr class="hrshow" />
-  </div>
 
-  <!-----------------= services end =------------------->
+      <!-----------------= services end =------------------->
 
-  <!-------------------------- Map Start -------------------------------->
-
-  <div class="col-8 offset-3 mb-3">
-    <h4 class="maph3">
-      <i class="fa-solid fa-compass fa-spin fa-sm" style="color: #ff0000"></i
-      >&nbsp;Where you’ll be
-    </h4>
-    <p
-      class="card-text maph3"
-      id="location-p"
-      style="margin-top: 10px; font-weight: 100 !important"
-    >
-      <%= listing.location %>, <%= listing.country %>
-    </p>
-    <div style="height: 20px"></div>
-    <div id="map"></div>
-  </div>
-
-  <!-------------------- Map End ----------------------->
-
-  <!-------------------- hosted start ---------------------->
-  <hr />
-  <div id="hosted">
-    <div class="hosted">
-      <i class="fa-solid fa-user"></i>
-    </div>
-    <div class="hosted-details">
-      <p>Hosted by <%= listing.owner.username %></p>
-      <p>Email : <%= listing.owner.email %></p>
-      <p id="host-description">
-        Superhosts are experienced, highly rated hosts who are committed to
-        providing great stays for guests.
+      <!-------------------------- Map Start -------------------------------->
+      <h4 class="suraj-map-title">
+        <i class="fa-solid fa-compass fa-spin fa-sm" style="color: #ff0000"></i>
+        &nbsp;Where you’ll be
+      </h4>
+      <p class="suraj-map-location">
+        <%= listing.location %>, <%= listing.country %>
       </p>
-      <div id="response-rt">
-        <p>Response rate : 100%</p>
-        <p style="margin-top: -14px">Response time : within an hour</p>
-      </div>
-      <span
-        ><i class="ri-verified-badge-line">Identity Verified</i>
-        <i class="ri-medal-line">Superhost</i></span
-      >
-      <!-- <button class="mx-auto btn btn-outline-dark">
-        <a href="https://www.mail.google.com/"></a>Contact host
-      </button> -->
+      <div class="suraj-map-container" id="map"></div>
+      <!-- 
+  <div class="suraj-map-div">
+    <h3>Where You'll Be</h3>
+    <div id="map" class="map-container"></div>
+  </div> -->
 
-      <div class="services-offer">
-        <!-- Button trigger modal -->
-        <button
-          id="offers"
-          type="button"
-          class="btn btn-outline-dark mx-auto"
-          data-bs-toggle="modal"
-          data-bs-target="#staticBackdrop"
-        >
-          Contact Host
-        </button>
+      <!-------------------- Map End ----------------------->
+      <!-------------------- Hosted Start ---------------------->
+      <div id="hosted" class="suraj-hosted-section">
+        <div class="suraj-hosted-header">
+          <i class="fa-solid fa-user"></i>
+          <h3>Hosted by <%= listing.owner.username %></h3>
+        </div>
+        <div class="suraj-hosted-details">
+          <p>Email: <%= listing.owner.email %></p>
+          <p id="host-description">
+            Superhosts are experienced, highly rated hosts who are committed to
+            providing great stays for guests.
+          </p>
+          <div id="response-rt">
+            <p>Response rate: 100%</p>
+            <p>Response time: within an hour</p>
+          </div>
+          <div class="suraj-hosted-credentials">
+            <i class="ri-verified-badge-line">Identity Verified</i>
+            <i class="ri-medal-line">Superhost</i>
+          </div>
+          <div class="suraj-contact-button">
+            <!-- Button trigger modal -->
+            <button
+              id="contact-host"
+              type="button"
+              class="btn btn-outline-dark mx-auto"
+              data-bs-toggle="modal"
+              data-bs-target="#contactHostModal"
+            >
+              Contact Host
+            </button>
 
-        <!-- Modal -->
-        <div
-          class="modal fade"
-          id="staticBackdrop"
-          data-bs-backdrop="static"
-          data-bs-keyboard="false"
-          tabindex="-1"
-          aria-labelledby="staticBackdropLabel"
-          aria-hidden="true"
-        >
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h1 class="modal-title fs-5" id="staticBackdropLabel">
-                  Owned by <%= listing.owner.username %>
-                </h1>
-              </div>
-              <div class="modal-body">
-                <div class="mb-3">
-                  <label for="exampleFormControlInput1" class="form-label"
-                    >Email address</label
-                  >
-                  <input
-                    type="email"
-                    class="form-control"
-                    id="exampleFormControlInput1"
-                    placeholder="johnduke19@example.com"
-                  />
+            <!-- Modal -->
+            <div
+              class="modal fade"
+              id="contactHostModal"
+              data-bs-backdrop="static"
+              data-bs-keyboard="false"
+              tabindex="-1"
+              aria-labelledby="contactHostModalLabel"
+              aria-hidden="true"
+            >
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="contactHostModalLabel">
+                      Contact <%= listing.owner.username %>
+                    </h1>
+                  </div>
+                  <div class="modal-body">
+                    <form>
+                      <div class="mb-3">
+                        <label for="contactEmail" class="form-label"
+                          >Email address</label
+                        >
+                        <input
+                          type="email"
+                          class="form-control"
+                          id="contactEmail"
+                          placeholder="johnduke19@example.com"
+                        />
+                      </div>
+                      <div class="mb-3">
+                        <label for="contactMessage" class="form-label"
+                          >Your Message</label
+                        >
+                        <textarea
+                          class="form-control"
+                          id="contactMessage"
+                          rows="3"
+                        ></textarea>
+                      </div>
+                    </form>
+                  </div>
+                  <div class="modal-footer">
+                    <button
+                      type="button"
+                      class="btn btn-success"
+                      data-bs-dismiss="modal"
+                    >
+                      Send
+                    </button>
+                    <button
+                      type="button"
+                      class="btn btn-outline-dark"
+                      data-bs-dismiss="modal"
+                    >
+                      Close
+                    </button>
+                  </div>
                 </div>
-                <div class="mb-3">
-                  <label for="exampleFormControlTextarea1" class="form-label"
-                    >Write your requirments below</label
-                  >
-                  <textarea
-                    class="form-control"
-                    id="exampleFormControlTextarea1"
-                    rows="3"
-                  ></textarea>
-                </div>
-              </div>
-              <div class="modal-footer">
-                <button
-                  type="button"
-                  class="btn btn-success"
-                  data-bs-dismiss="modal"
-                >
-                  Submit
-                </button>
               </div>
             </div>
           </div>
         </div>
       </div>
+      <hr />
+
+      <!-------------------- Accordion Start ------------------->
+      <div class="suraj-accordion-section">
+        <h2 class="text-center p-4">Frequently Asked Questions</h2>
+        <div class="accordion" id="accordionExample">
+          <div class="accordion-item">
+            <h2 class="accordion-header">
+              <button
+                class="accordion-button"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#collapseOne"
+                aria-expanded="true"
+                aria-controls="collapseOne"
+              >
+                How do I search for available properties?
+              </button>
+            </h2>
+            <div
+              id="collapseOne"
+              class="accordion-collapse collapse show"
+              data-bs-parent="#accordionExample"
+            >
+              <div class="accordion-body">
+                To search for available properties, navigate to the
+                <b>Search bar</b> on the homepage. Enter your desired location,
+                title of a house if you already know, category, budget, and any
+                other preferences such as amenities or property type. Click on
+                the search button to see a list of available properties that
+                match your criteria.
+              </div>
+            </div>
+          </div>
+          <!-- Additional Accordion Items Here -->
+          <div class="accordion-item">
+            <h2 class="accordion-header">
+              <button
+                class="accordion-button collapsed"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#collapseTwo"
+                aria-expanded="false"
+                aria-controls="collapseTwo"
+              >
+                Can I request additional services or amenities?
+              </button>
+            </h2>
+            <div
+              id="collapseTwo"
+              class="accordion-collapse collapse"
+              data-bs-parent="#accordionExample"
+            >
+              <div class="accordion-body">
+                <b>Yes</b>, you can request additional services such as
+                housekeeping, airport transfers, grocery delivery, or special
+                requests like extra bedding or baby cribs. Contact the property
+                owner/manager or use our messaging platform to make your
+                requests.
+              </div>
+            </div>
+          </div>
+          <!-- More items... -->
+          <div class="accordion suraj-accordion" id="accordionAdditional">
+            <!-- Accordion Item 11 -->
+            <div class="accordion-item suraj-accordion-item">
+              <h2 class="accordion-header" id="heading11">
+                <button
+                  class="accordion-button suraj-accordion-button collapsed"
+                  type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#collapse11"
+                  aria-expanded="false"
+                  aria-controls="collapse11"
+                >
+                  What is the best time to visit the Alps?
+                </button>
+              </h2>
+              <div
+                id="collapse11"
+                class="accordion-collapse collapse"
+                aria-labelledby="heading11"
+                data-bs-parent="#accordionAdditional"
+              >
+                <div class="accordion-body suraj-accordion-body">
+                  The best time to visit the Alps depends on your interests. For
+                  skiing and winter sports, December to February is ideal. For
+                  hiking and summer activities, June to September is
+                  recommended.
+                </div>
+              </div>
+            </div>
+
+            <!-- Accordion Item 12 -->
+            <div class="accordion-item suraj-accordion-item">
+              <h2 class="accordion-header" id="heading12">
+                <button
+                  class="accordion-button suraj-accordion-button collapsed"
+                  type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#collapse12"
+                  aria-expanded="false"
+                  aria-controls="collapse12"
+                >
+                  Are there any pet-friendly vacation rentals?
+                </button>
+              </h2>
+              <div
+                id="collapse12"
+                class="accordion-collapse collapse"
+                aria-labelledby="heading12"
+                data-bs-parent="#accordionAdditional"
+              >
+                <div class="accordion-body suraj-accordion-body">
+                  Yes, many vacation rentals are pet-friendly. You can find
+                  options by filtering for pet-friendly properties on booking
+                  platforms or contacting property owners directly.
+                </div>
+              </div>
+            </div>
+
+            <!-- Accordion Item 13 -->
+            <div class="accordion-item suraj-accordion-item">
+              <h2 class="accordion-header" id="heading13">
+                <button
+                  class="accordion-button suraj-accordion-button collapsed"
+                  type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#collapse13"
+                  aria-expanded="false"
+                  aria-controls="collapse13"
+                >
+                  What amenities are typically included in luxury rentals?
+                </button>
+              </h2>
+              <div
+                id="collapse13"
+                class="accordion-collapse collapse"
+                aria-labelledby="heading13"
+                data-bs-parent="#accordionAdditional"
+              >
+                <div class="accordion-body suraj-accordion-body">
+                  Luxury rentals often include amenities such as a private pool,
+                  hot tub, high-end kitchen appliances, spacious living areas,
+                  and sometimes even concierge services.
+                </div>
+              </div>
+            </div>
+
+            <!-- Accordion Item 14 -->
+            <div class="accordion-item suraj-accordion-item">
+              <h2 class="accordion-header" id="heading14">
+                <button
+                  class="accordion-button suraj-accordion-button collapsed"
+                  type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#collapse14"
+                  aria-expanded="false"
+                  aria-controls="collapse14"
+                >
+                  How can I find vacation rentals with accessibility features?
+                </button>
+              </h2>
+              <div
+                id="collapse14"
+                class="accordion-collapse collapse"
+                aria-labelledby="heading14"
+                data-bs-parent="#accordionAdditional"
+              >
+                <div class="accordion-body suraj-accordion-body">
+                  Look for vacation rentals that specifically list accessibility
+                  features in their descriptions. Platforms like Airbnb and Vrbo
+                  offer filters for accessibility, such as wheelchair
+                  accessibility and other features.
+                </div>
+              </div>
+            </div>
+
+            <!-- Accordion Item 15 -->
+            <div class="accordion-item suraj-accordion-item">
+              <h2 class="accordion-header" id="heading15">
+                <button
+                  class="accordion-button suraj-accordion-button collapsed"
+                  type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#collapse15"
+                  aria-expanded="false"
+                  aria-controls="collapse15"
+                >
+                  What should I check before booking a vacation rental?
+                </button>
+              </h2>
+              <div
+                id="collapse15"
+                class="accordion-collapse collapse"
+                aria-labelledby="heading15"
+                data-bs-parent="#accordionAdditional"
+              >
+                <div class="accordion-body suraj-accordion-body">
+                  Check the rental’s reviews, the host’s response rate, the
+                  amenities included, the property’s location, and any
+                  additional fees or deposits required. Ensure the rental meets
+                  your specific needs and preferences.
+                </div>
+              </div>
+            </div>
+
+            <!-- Accordion Item 16 -->
+            <div class="accordion-item suraj-accordion-item">
+              <h2 class="accordion-header" id="heading16">
+                <button
+                  class="accordion-button suraj-accordion-button collapsed"
+                  type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#collapse16"
+                  aria-expanded="false"
+                  aria-controls="collapse16"
+                >
+                  How do I handle check-in and check-out times?
+                </button>
+              </h2>
+              <div
+                id="collapse16"
+                class="accordion-collapse collapse"
+                aria-labelledby="heading16"
+                data-bs-parent="#accordionAdditional"
+              >
+                <div class="accordion-body suraj-accordion-body">
+                  Communicate with the host before your arrival to confirm
+                  check-in and check-out times. Some rentals offer flexible
+                  times or self-check-in options, which can be arranged in
+                  advance.
+                </div>
+              </div>
+            </div>
+
+            <!-- Accordion Item 17 -->
+            <div class="accordion-item suraj-accordion-item">
+              <h2 class="accordion-header" id="heading17">
+                <button
+                  class="accordion-button suraj-accordion-button collapsed"
+                  type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#collapse17"
+                  aria-expanded="false"
+                  aria-controls="collapse17"
+                >
+                  Are there any hidden fees when booking a vacation rental?
+                </button>
+              </h2>
+              <div
+                id="collapse17"
+                class="accordion-collapse collapse"
+                aria-labelledby="heading17"
+                data-bs-parent="#accordionAdditional"
+              >
+                <div class="accordion-body suraj-accordion-body">
+                  Be aware of potential hidden fees such as cleaning fees,
+                  service charges, or security deposits. These fees are usually
+                  listed in the rental’s description or breakdown of costs.
+                </div>
+              </div>
+            </div>
+
+            <!-- Accordion Item 18 -->
+            <div class="accordion-item suraj-accordion-item">
+              <h2 class="accordion-header" id="heading18">
+                <button
+                  class="accordion-button suraj-accordion-button collapsed"
+                  type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#collapse18"
+                  aria-expanded="false"
+                  aria-controls="collapse18"
+                >
+                  What are some tips for a smooth vacation rental experience?
+                </button>
+              </h2>
+              <div
+                id="collapse18"
+                class="accordion-collapse collapse"
+                aria-labelledby="heading18"
+                data-bs-parent="#accordionAdditional"
+              >
+                <div class="accordion-body suraj-accordion-body">
+                  Communicate clearly with the host, read reviews, follow house
+                  rules, and report any issues promptly. Make sure to leave the
+                  property in good condition to ensure a positive experience for
+                  future guests.
+                </div>
+              </div>
+            </div>
+
+            <!-- Accordion Item 19 -->
+            <div class="accordion-item suraj-accordion-item">
+              <h2 class="accordion-header" id="heading19">
+                <button
+                  class="accordion-button suraj-accordion-button collapsed"
+                  type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#collapse19"
+                  aria-expanded="false"
+                  aria-controls="collapse19"
+                >
+                  Can I negotiate the price of a vacation rental?
+                </button>
+              </h2>
+              <div
+                id="collapse19"
+                class="accordion-collapse collapse"
+                aria-labelledby="heading19"
+                data-bs-parent="#accordionAdditional"
+              >
+                <div class="accordion-body suraj-accordion-body">
+                  It’s possible to negotiate, especially for longer stays or
+                  during off-peak times. Contact the host directly to inquire
+                  about possible discounts or special offers.
+                </div>
+              </div>
+            </div>
+
+            <!-- Accordion Item 20 -->
+            <div class="accordion-item suraj-accordion-item">
+              <h2 class="accordion-header" id="heading20">
+                <button
+                  class="accordion-button suraj-accordion-button collapsed"
+                  type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#collapse20"
+                  aria-expanded="false"
+                  aria-controls="collapse20"
+                >
+                  What are some unique vacation rental options?
+                </button>
+              </h2>
+              <div
+                id="collapse20"
+                class="accordion-collapse collapse"
+                aria-labelledby="heading20"
+                data-bs-parent="#accordionAdditional"
+              >
+                <div class="accordion-body suraj-accordion-body">
+                  Unique options include treehouses, yurts, houseboats, and
+                  converted historic buildings. These rentals offer a
+                  distinctive experience compared to traditional accommodations.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-------------------- Accordion End ------------------->
     </div>
   </div>
-  <hr />
-  <!-------------------- hosted end ---------------------->
+  <script src="/js/map.js"></script>
+  <!-- <script src="/js/reviewjs"></script> -->
 
-  <!-------------------- Accordion ------------------->
-  <h2 class="text-center p-4">Frequently Asked Questions</h2>
-  <div class="accordion col-9 mx-auto" id="accordionExample">
-    <div class="accordion-item">
-      <h2 class="accordion-header">
-        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-        How do I search for available properties?
-        </button>
-      </h2>
-      <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
-        <div class="accordion-body">
-          To search for available properties, navigate to the <b>Search bar</b> on the homepage. Enter your desired location, title of a house if you already know , category , budget & any other preferences such as amenities or property type. Click on the search button to see a list of available properties that match your criteria.
-        </div>
-      </div>
-    </div>
-    <div class="accordion-item">
-      <h2 class="accordion-header">
-        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-          Can I request additional services or amenities?
-        </button>
-      </h2>
-      <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-        <div class="accordion-body">
-          <b>Yes</b>, you can request additional services such as housekeeping, airport transfers, grocery delivery, or special requests like extra bedding or baby cribs. Contact the property owner/manager or use our messaging platform to make your requests.
-        </div>
-      </div>
-    </div>
-    <div class="accordion-item">
-      <h2 class="accordion-header">
-        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-          What safety measures are in place?
-        </button>
-      </h2>
-      <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-        <div class="accordion-body">
-          Our properties adhere to <b>Safety</b> standards and may include features such as smoke detectors, fire extinguishers, first aid kits, and emergency contact information. We also recommend familiarizing yourself with the property's layout and emergency exits upon check-in.
-        </div>
-      </div>
-    </div>
-    <div class="accordion-item">
-      <h2 class="accordion-header">
-        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="#collapseFour"       
-        >
-        What payment methods are accepted?
-        </button>
-      </h2>
-      <div id="collapseFour" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-        <div class="accordion-body">
-          We accept a variety of payment methods including <strong>credit/debit cards (Visa, MasterCard, American Express), PayPal, UPIs, Wallet and bank transfers</strong>. You can choose your preferred payment method during the checkout process. You will get the receipt of your payment method in your email address. This feature is build by me through Razorpay Payment Gateway.<strong>It is not a fake process it can actually debit your money while booking.</strong>
-        </div>
-      </div>
-    </div>
-    <div class="accordion-item">
-      <h2 class="accordion-header">
-        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
-          Are pets allowed in the properties?
-        </button>
-      </h2>
-      <div id="collapseFive" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-        <div class="accordion-body">
-          Some properties may <b>Allow</b> pets while others may have restrictions or additional fees for pets. You can filter your search to find pet-friendly properties or contact the property owner/manager for more information about their pet policy.
-        </div>
-      </div>
-    </div>
-    <div class="accordion-item">
-      <h2 class="accordion-header">
-        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
-          Do I need to create an account to add a review or make a payment?
-        </button>
-      </h2>
-      <div id="collapseSix" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-        <div class="accordion-body">
-          <strong>Yes</strong>, you need to be logged in to add a review or make a payment for booking a house. Creating an account ensures that we can provide a secure and personalized experience for all our users. It also helps us verify the authenticity of reviews and manage your bookings efficiently. You can easily sign up or log in using the "Login/Sign Up" button on the top right corner of the website.
-        </div>
-      </div>
-    </div>
-    <br>
-  </div>
-  <!-------------------- Accordion end ------------------->
-</div>
-
-<script src="/js/map.js"></script>
-
-<!--------------------- Payment Gateway ------------------>
-
+  <!--------------------- Payment Gateway ------------------>
 <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 
 <script>
@@ -649,6 +912,7 @@
       });
     });
   });
-</script>
+</script> 
 
-<script src="/js/script.js"></script>
+  <script src="/js/script.js"></script>
+</div>

@@ -30,67 +30,6 @@ body {
 .container {
   flex: 1;
 }
-.navbar {
-  height: 4.5rem;
-  background-color: #ebebee;
-}
-.fa-compass {
-  color: #fe424d;
-  font-size: 2rem;
-}
-.nav-link {
-  color: #222222 !important;
-  cursor: pointer;
-}
-
-.nav-link:hover {
-  color: #fe424d !important;
-}
-
-#title {
-  color: #fe424d !important;
-  font-size: 1.4rem;
-}
-
-.f-info-links {
-  gap: 10px;
-}
-.f-info-links a {
-  text-decoration: none;
-  color: #222222;
-}
-.f-info-links a:hover {
-  text-decoration: underline;
-  color: #151515;
-}
-.f-info {
-  display: flex;
-  height: 8rem;
-  background-color: #ebebee;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: space-evenly;
-  text-align: center;
-}
-.f-info-links,
-.f-info-socials,
-.f-info-brand {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.f-info-socials i {
-  cursor: pointer;
-  font-size: 1.5rem;
-  margin-right: 1.2rem;
-  line-height: 50px;
-}
-
-/* .f-info-socials i:hover {
-  font-size: 1.6rem;
-  transition: 0.3s;
-} */
 
 /* ------------------- login -------------------- */
 
@@ -217,7 +156,7 @@ img {
 }
 
 .hrshow {
-  width: 88%;
+  width: 100%;
 }
 
 textarea {
@@ -269,29 +208,8 @@ textarea {
 
 /* --------------------- Map ------------------- */
 
-#map {
-  height: 460px;
-  /* width: 760px; */
-  width: 130%;
-  border: 5px solid #d0d0d3;
-  border-style: ridge;
-  margin-left: -27%;
-}
-.maph3 {
-  margin-left: -70px;
-  font-weight: 700 !important;
-}
-
-nav {
-  position: sticky !important;
-}
-
-#location p {
-  margin-left: -70px;
-}
-
 /*------------------- Hosted by (show.ejs) ---------------------*/
-
+/* 
 #hosted {
   padding: 30px;
 }
@@ -352,6 +270,51 @@ nav {
   display: flex;
   justify-content: center;
   font-weight: 500;
+} */
+/* Hosted Section */
+#hosted {
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  padding: 20px;
+  margin: 20px 0;
+}
+
+.hosted {
+  display: flex;
+  align-items: center;
+}
+
+.hosted i {
+  font-size: 2rem;
+  color: #007bff;
+}
+
+.hosted-details {
+  margin-left: 15px;
+}
+
+#host-description {
+  font-style: italic;
+}
+
+#response-rt {
+  margin-top: 10px;
+}
+
+#response-rt p {
+  margin: 0;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .hosted {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .hosted i {
+    font-size: 1.5rem;
+  }
 }
 
 /* ------------------ index.ejs (Home Page) ------------------ */
@@ -666,7 +629,25 @@ footer {
   width: 26%;
 }
 
+/* neww css page   */
+.suraj-col-custom {
+  margin: 0 auto;
+  padding: 0 15px;
+}
+
+@media (max-width: 768px) {
+  
+  .suraj-col-custom {
+      padding: 12px;
+  }
+}
+
 /* ------------------------ Responsive -------------- */
+@media (max-width: 768px) {
+  .map-off {
+    margin-left: 20.666667%;
+}
+}
 
 @media (max-width: 1150px) {
   /* .filter-box {
@@ -693,23 +674,18 @@ footer {
     width: 100%;
     overflow-x: hidden;
     offset: none;
-    margin-top: 80px;
   }
 
   #preloader{
     background-size: 80%;
   }
-
+/* 
   .container-fluid {
     background-color: #ebebee;
     color: white;
     text-align: center;
-  }
-  .navbar {
-    position: fixed !important;
-    width: 100%;
-  }
-
+  } */
+ /*
   .search-inp {
     width: 210px !important;
   }
@@ -717,7 +693,7 @@ footer {
   #account {
     margin-left: -40px;
     font-weight: 500;
-  }
+  } */
 
   #show-body {
     width: 180% !important;
@@ -751,7 +727,7 @@ footer {
   }
 
   .hrshow {
-    width: 70%;
+    width: 100%;
   }
 
   .price-range {
@@ -760,26 +736,29 @@ footer {
 
   /* ---------------- Offer ---------------- */
 
-  .offers {
+  /* .offers {
     margin-left: -20px;
     /* display: flex;
     justify-content: center;
-    overflow-x: scroll; */
+    overflow-x: scroll; 
+  }
+  .offers i {
+    font-size: 25px;
   }
 
   #services p {
-    width: 75%;
+    width: 100%;
   }
-
+/* 
   /* ------------------ Map --------------- */
 
-  #map {
+  /* #map {
     width: 265px;
     height: 350px;
     border: 4px solid #ebebee;
     border-style: groove;
     margin-left: 6px;
-  }
+  } 
 
   .maph3 {
     margin-left: 10px;
@@ -802,7 +781,7 @@ footer {
     align-items: center;
     margin-bottom: -16px;
     margin-top: -13px;
-  }
+  } */
 
   /* .filter-width{
     width: 160%;
@@ -810,8 +789,7 @@ footer {
 
   /* .filter-box {
     margin-left: 480px;
-  } */
-
+  }
   #filters .tax-toggle {
     display: none;
   }
@@ -839,7 +817,7 @@ footer {
 
   #host-description {
     padding: 0px 19%;
-  }
+  } */
 
   /* ------------------- login -------------------- */
 
@@ -890,9 +868,5 @@ footer {
   }
   #third-fr {
     margin-top: 26px;
-  }
-  /* -- Accordion -- */
-  .accordion{
-    width: 56% !important;
   }
 }

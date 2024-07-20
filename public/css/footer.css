@@ -1,0 +1,94 @@
+/* Custom Footer Styles */
+footer {
+    background-color: #f8f9fa;
+    padding: 20px;
+  }
+  
+  .footer {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  
+  .footer-item {
+    flex: 1;
+    min-width: 200px;
+  }
+  
+  .footer-item h5 {
+    margin-bottom: 10px;
+  }
+  
+  .footer-item a {
+    display: block;
+    color: #007bff;
+    text-decoration: none;
+    margin-bottom: 5px;
+  }
+  
+  .footer-item a:hover {
+    text-decoration: underline;
+  }
+  
+  .scrollup {
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  .scrollup button {
+    background: transparent;
+    border: none;
+    font-size: 18px;
+    color: #007bff;
+    cursor: pointer;
+  }
+  
+  .scrollup button.topfun {
+    font-size: 24px;
+  }
+  
+  .container.lang-inr {
+    text-align: center;
+  }
+  
+  .container.lang-inr .logoimg {
+    width: 50px;
+    vertical-align: middle;
+  }
+  
+  .btn-outline-dark {
+    border-color: #343a40;
+    color: #343a40;
+  }
+  
+  .btn-outline-dark:hover {
+    background-color: #343a40;
+    color: #ffffff;
+  }
+  
+  .f-info {
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  .f-info-socials i {
+    font-size: 24px;
+    margin: 0 10px;
+    cursor: pointer;
+  }
+  
+  .f-info-brand {
+    margin: 10px 0;
+  }
+  
+  .f-info-links a {
+    color: #007bff;
+    text-decoration: none;
+    margin: 0 10px;
+  }
+  
+  .f-info-links a:hover {
+    text-decoration: underline;
+  }
+  

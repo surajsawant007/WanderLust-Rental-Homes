@@ -1,0 +1,133 @@
+/* General Styles */
+.navbar {
+  background-color: #fff; /* Ensure the navbar has a background color */
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.wander-search {
+  border-radius: 15px;
+  padding: 10px 90px;
+  margin-right: 10px;
+  font-weight: 600;
+}
+
+.search-btn {
+  background-color: #fe424d !important;
+  color: #fff !important;
+  border-radius: 25px !important;
+  padding: 0 1rem !important;
+  transition: background-color 0.3s ease !important;
+  margin-right: 5px;
+}
+
+.search-btn:hover {
+  background-color: #d33a3e !important; /* Slightly different color for hover effect */
+}
+
+.search-btn i {
+  display: inline;
+  margin-right: 0.5rem;
+}
+
+.search-inp {
+  border-radius: 25px;
+  padding: 0.5rem 3rem;
+  font-size: 0.9rem;
+}
+
+#responsive-registration {
+  display: none;
+}
+
+.dropdown button {
+  margin-left: 120px;
+  width: 80px;
+  height: 44px;
+  border-radius: 22px;
+}
+
+.dropdown-menu {
+  width: 200px;
+  padding: 20px;
+}
+
+.logoimg {
+  width: 50px;
+  border: none;
+  border-radius: 50%;
+  margin-left: 10px;
+}
+
+.nav-link {
+  transition: color 0.3s ease, background-color 0.3s ease;
+}
+
+.nav-link:hover {
+  color: #d33a3e;
+  background-color: #f8f9fa; /* Light gray background on hover */
+}
+
+.nav-link-logout {
+  color: #d33a3e !important;
+}
+
+/* Mobile View */
+@media (max-width: 600px) {
+  .navbar {
+    background-color: #fff; /* Ensure the navbar has a background color */
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+  }
+  .wander-search {
+    border-radius: 15px;
+    padding: 10px 50px;
+    font-weight: 600;
+  }
+
+  .dropdown {
+    display: none;
+  }
+
+  #responsive-registration {
+    display: inline;
+    margin: 7px;
+  }
+
+  #responsive-registration a {
+    margin: 5px;
+    align-items: center;
+    text-align: center;
+  }
+
+  #responsive-registration a:hover {
+    background-color: gray !important;
+    color: #fff;
+  }
+
+  .navbar-nav .nav-search {
+    width: 100%;
+    text-align: center;
+    margin-top: 10px;
+  }
+
+  .nav-search form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .search-inp {
+    width: calc(100% - 3rem); /* Adjust width to fit mobile screen */
+    margin-bottom: 0.5rem;
+  }
+
+  .search-btn {
+    padding: 0.5rem;
+    background-color: #fe424d !important;
+    margin-top: 7px;
+    color: #fff !important;
+  }
+}

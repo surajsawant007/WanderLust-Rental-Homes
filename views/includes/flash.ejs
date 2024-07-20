@@ -1,27 +1,71 @@
 <% if(success && success.length) { %>
-<div
-  class="alert alert-success alert-dismissible fade show col-6 offset-3"
-  role="alert"
->
-  <%= success %>
-  <button
-    type="button"
-    class="btn-close"
-    data-bs-dismiss="alert"
-    aria-label="Close"
-  ></button>
-</div>
-<% } %> <% if(error && error.length) { %>
-<div
-  class="alert alert-danger alert-dismissible fade show col-6 offset-3"
-  role="alert"
->
-  <%= error %>
-  <button
-    type="button"
-    class="btn-close"
-    data-bs-dismiss="alert"
-    aria-label="Close"
-  ></button>
-</div>
+  <div id="success-toast" class="success-toast-popup" role="alert">
+      <i class="fas fa-check-circle"></i> <%= success %>
+  </div>
 <% } %>
+
+<% if(error && error.length) { %>
+  <div id="error-toast" class="error-toast-popup" role="alert">
+      <i class="fas fa-times-circle"></i> <%= error %>
+  </div>
+<% } %>
+
+<% if(update && update.length) { %>
+  <div id="update-toast" class="update-toast-popup" role="alert">
+      <i class="fas fa-edit"></i> <%= update %>
+  </div>
+<% } %>
+
+<% if(destroy && destroy.length) { %>
+  <div id="destroy-toast" class="destroy-toast-popup" role="alert">
+      <i class="fas fa-trash"></i> <%= destroy %>
+  </div>
+<% } %>
+
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const successToast = document.getElementById("success-toast");
+    if (successToast) {
+        successToast.className = "success-toast-popup show";
+        setTimeout(function () {
+            successToast.className = successToast.className.replace("show", "");
+        }, 3000);
+    }
+  });
+  
+  // error
+  document.addEventListener("DOMContentLoaded", function () {
+    const errorToast = document.getElementById("error-toast");
+    if (errorToast) {
+        errorToast.className = "error-toast-popup show";
+        setTimeout(function () {
+            errorToast.className = errorToast.className.replace("show", "");
+        }, 3000);
+    }
+  });
+  
+  // upadate
+  
+  document.addEventListener("DOMContentLoaded", function () {
+    const updateToast = document.getElementById("update-toast");
+    if (updateToast) {
+        updateToast.className = "update-toast-popup show";
+        setTimeout(function () {
+            updateToast.className = updateToast.className.replace("show", "");
+        }, 3000);
+    }
+  });
+  
+  // DELETE  
+  
+  document.addEventListener("DOMContentLoaded", function () {
+    const destroyToast = document.getElementById("destroy-toast");
+    if (destroyToast) {
+        destroyToast.className = "destroy-toast-popup show";
+        setTimeout(function () {
+            destroyToast.className = destroyToast.className.replace("show", "");
+        }, 3000);
+    }
+  });
+</script>
