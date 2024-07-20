@@ -49,11 +49,12 @@ I have deployed my project using render connected with the database of MongoDB A
 
 Email: surajsawant3482@gmail.com
 
-LinkedIn: https://www.linkedin.com/in/mdaffanasghar/
+LinkedIn: www.linkedin.com/in/suraj-sawant07/
 
 Instagram: https://www.instagram.com/suraj_sawant_07/
 
-GitHub: https://github.com/affancoder
+GitHub: https://github.com/surajsawant007/
+
 ## Feedback
 
 If you have any feedback, please reach out to us at affanasgar8@gmail.com
